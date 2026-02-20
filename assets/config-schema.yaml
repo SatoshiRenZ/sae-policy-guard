@@ -1,0 +1,126 @@
+# SAE Policy Guard Configuration
+# ================================
+# Copy this file and modify values to customize behavior.
+# Pass to any script with --config <path>
+#
+# NOTE: Scripts accept JSON format for stdlib compatibility.
+# Convert this YAML to JSON before use, or use the JSON example below.
+
+# --- Trader State Model ---
+trader_state:
+  # Pattern weights (must sum to meaningful total; normalized internally)
+  weights:
+    revenge_trading: 0.25       # Highest: rapid loss-recovery spirals
+    overconfidence: 0.15        # Win-streak size escalation
+    high_freq_switching: 0.15   # Direction/asset flipping
+    late_night_impulsivity: 0.20 # Off-hours trading
+    tilt_averaging: 0.15        # Adding to losers
+    fomo_chasing: 0.10          # Chasing momentum
+
+  # Normal trading hours (trades outside are flagged)
+  normal_trading_hours:
+    start: "08:00"
+    end: "22:00"
+    timezone: "UTC"
+
+  # Analysis window
+  lookback_window_hours: 24
+
+  # Pattern-specific thresholds
+  revenge_reentry_minutes: 15     # Max gap to count as revenge re-entry
+  revenge_size_ratio: 1.0         # Min size ratio (next/previous) for revenge
+  overconfidence_win_streak: 4    # Wins needed before checking escalation
+  overconfidence_size_growth: 1.5 # Min size growth factor after streak
+  high_freq_switch_threshold_per_hour: 8  # Switches per hour = score 1.0
+  tilt_min_adds: 2                # Min adds-while-losing for tilt detection
+  fomo_move_pct: 5.0              # Min recent move % to trigger FOMO check
+  fomo_window_hours: 4            # Lookback for recent move calculation
+
+# --- Market Context ---
+market_context:
+  # Volatility regime percentile boundaries
+  volatility_percentiles:
+    low: 25       # Below 25th percentile = low volatility
+    elevated: 75  # Above 75th percentile = elevated
+    extreme: 90   # Above 90th percentile = extreme
+
+  # Liquidity baselines (for normalization)
+  liquidity_depth_baseline_usd: 5000000  # "Normal" order book depth
+  spread_baseline_bps: 5.0               # "Normal" spread in basis points
+
+  # Narrative intensity
+  narrative_intensity_multiplier: 3.0  # Social volume 3x avg = intensity 1.0
+
+  # Event detection
+  event_lookahead_hours: 24
+
+  # Error amplification weight composition
+  error_amplification_weights:
+    volatility: 0.30
+    liquidity_inverse: 0.25
+    event_window: 0.15
+    narrative: 0.30
+
+  # Manual event calendar (ISO 8601 timestamps)
+  # Add upcoming events that may amplify trading errors
+  events: []
+  # Example:
+  # events:
+  #   - name: "FOMC Decision"
+  #     timestamp: "2026-03-19T18:00:00Z"
+  #   - name: "BTC Options Expiry"
+  #     timestamp: "2026-02-28T08:00:00Z"
+
+# --- Policy Gate ---
+policy_gate:
+  # Risk band boundaries
+  thresholds:
+    low_risk: 0.3   # Below 0.3 = low risk
+    high_risk: 0.6   # Above 0.6 = high risk (0.3-0.6 = medium)
+
+  # Narrative exclusion thresholds per trader risk level
+  # Lower threshold = more aggressive narrative blocking
+  narrative_exclusion_thresholds:
+    low_trader_risk: 0.8     # Block narrative only at very high intensity
+    medium_trader_risk: 0.6  # Block at moderate-high intensity
+    high_trader_risk: 0.5    # Block at moderate intensity
+
+  # Policy matrix overrides (uncomment to customize specific cells)
+  # Each cell: decision, position_pct, leverage_pct, cool_down_min, staged, stage_count, max_trades_per_hour
+  # policy_matrix:
+  #   high_high:
+  #     decision: "BLOCK"
+  #     position_pct: 0
+  #     leverage_pct: 0
+  #     cool_down_min: 120  # Override: 2 hour block instead of 1 hour
+  #     staged: false
+  #     stage_count: 0
+  #     max_trades_per_hour: 0
+
+# --- Threat Audit ---
+threat_audit:
+  # Directories to skip during scan
+  skip_dirs:
+    - node_modules
+    - __pycache__
+    - .git
+    - venv
+    - .venv
+
+# --- Replay Evaluation ---
+replay:
+  portfolio_value_usd: 25000    # Default portfolio value for % calculations
+  blowup_threshold_pct: 20.0    # Loss % that constitutes a blow-up
+  cvar_percentile: 5.0           # CVaR calculation percentile
+
+# =============================================================================
+# JSON equivalent (for use with scripts):
+# =============================================================================
+# Save as config.json:
+# {
+#   "weights": {"revenge_trading": 0.25, "overconfidence": 0.15, ...},
+#   "normal_trading_hours": {"start": "08:00", "end": "22:00", "timezone": "UTC"},
+#   "lookback_window_hours": 24,
+#   "thresholds": {"low_risk": 0.3, "high_risk": 0.6},
+#   ...
+# }
